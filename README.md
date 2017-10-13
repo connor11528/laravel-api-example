@@ -1,13 +1,17 @@
 Laravel 5 REST API
 ---
 
-I'll be working alongside [this tutorial](https://www.toptal.com/laravel/restful-laravel-api-tutorial) for building the API
+> Build an API with Laravel 5
 
-**Step 1:** Create project with [this handy script](https://gist.github.com/connor11528/fcfbdb63bc9633a54f40f0a66e3d3f2e)
+I'll be working alongside [this tutorial](https://www.toptal.com/laravel/restful-laravel-api-tutorial) for building the API. The author put the source code up for it [here](https://github.com/andrecastelo/example-api)
+
+###Step 1: Create the project 
+
+We can use [this handy script](https://gist.github.com/connor11528/fcfbdb63bc9633a54f40f0a66e3d3f2e) for generating a new Laravel 5 app.
 
 I also wrote [this Medium article](https://medium.com/@connorleech/build-an-online-forum-with-laravel-initial-setup-and-seeding-part-1-a53138d1fffc) that goes through installing and configuring a MySQL database for a Laravel 5 application. I find myself refering back to it regularly. 
 
-**Step 2:** Configure database and make models
+### Step 2: Configure database and make models
 
 If you don't have MySQL installed on Mac may the force be with you. It comes preinstalled and there's MAMP but getting your machine set up to run SQL to MySQL from the terminal can be tricky.
 
@@ -48,6 +52,62 @@ $guarded = []
 ```
 
 Which for our purposes will do the same thing. To learn more about this you can check the Eloquent docs on [Mass Assignment](https://laravel.com/docs/5.5/eloquent#mass-assignment).
+
+
+### Step 3: Step up a database seeders
+
+By default we want data to play with so we must seed the database. Generate a new seeder for creating articles:
+
+Create the articles table seeder:
+
+```
+$ php artisan make:seeder ArticlesTableSeeder
+```
+
+That file is in **database/seeds/ArticlesTableSeeder.php**. Update it so it looks like:
+
+```
+<?php
+
+use App\Article;
+use Illuminate\Database\Seeder;
+
+class ArticlesTableSeeder extends Seeder
+{
+    public function run()
+    {
+        // Let's truncate our existing records to start from scratch.
+        Article::truncate();
+
+        $faker = \Faker\Factory::create();
+
+        // And now, let's create a few articles in our database:
+        for ($i = 0; $i < 50; $i++) {
+            Article::create([
+                'title' => $faker->sentence,
+                'body' => $faker->paragraph,
+            ]);
+        }
+    }
+}
+```
+
+Run the database seeder:
+
+```
+$ php artisan db:seed --class=ArticlesTableSeeder
+```
+
+To make sure it worked we can use the `artisan tinker` command. For the uninitiated there's a great intro article about the tool [on scotch.io](https://scotch.io/tutorials/tinker-with-the-data-in-your-laravel-apps-with-php-artisan-tinker).
+
+To use it we run:
+
+```
+$ php artisan tinker 
+> App\Article::all();
+```
+
+Fifty articles in JSON format should fill up your console screen. Congrats we seeded the database full of articles!
 
 
 
