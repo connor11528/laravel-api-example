@@ -321,6 +321,39 @@ $ curl -X POST http://localhost:8000/api/register \
  -d '{"name": "John", "email": "test@register.com", "password": "toptal123", "password_confirmation": "toptal123"}'
 ```
 
+In the **LoginController.php** define a login method:
+
+```
+public function login(Request $request)
+{
+    $this->validateLogin($request);
+
+    if ($this->attemptLogin($request)) {
+        $user = $this->guard()->user();
+        $user->generateToken();
+
+        return response()->json([
+            'data' => $user->toArray(),
+        ]);
+    }
+
+    return $this->sendFailedLoginResponse($request);
+}
+```
+
+This overwrites the trait defined in `AuthenticatesUsers`. Curl request to test login: 
+
+```
+$ curl -X POST localhost:8000/api/login \
+  -H "Accept: application/json" \
+  -H "Content-type: application/json" \
+  -d "{\"email\": \"admin@test.com\", \"password\": \"toptal\" }"
+```
+
+Authorization token will be in the header for requests and look like `Authorization: Bearer Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqnw`
+
+
+
 
 
 
