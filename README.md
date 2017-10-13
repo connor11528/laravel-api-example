@@ -234,6 +234,92 @@ class ArticleController extends Controller
 
 Now we have a rudimentary API for articles. You can view in your browser all the articles: http://localhost:8000/api/articles or an individual article based on id: http://localhost:8000/api/articles/2
 
+## Step 5: Test our API with Postman
+
+Install the Postman client [here](https://www.getpostman.com/)
+
+![Postman website home page](blob:https://imgur.com/a5b73437-dea0-4ce9-8a62-fb63c433d68e)
+
+From the postman client we can create get, put, post and delete requests with parameters and later on even add authorization headers. It took me a few minutes to get comfortable with their dashboard but I grew to digg it quickly. I'd heard about Postman for a long time but for whatever reason haven't incorporated it into my dev workflow. For building APIs Postman is a great tool! 
+
+[Postman docs on making requests](https://www.getpostman.com/docs/postman/sending_api_requests/requests)
+
+Each request belongs to a collection so I made a test collection and defined some endpoints. 
+
+![Postman initial route endpoints](https://i.imgur.com/Scsukn1.png)
+
+You can view the API routes that I develop in this tutorial through [this link](https://www.getpostman.com/collections/0f2602a774f9d810c68e)
+
+![Easily share api endpoints you set up in Postman](https://i.imgur.com/MxsjI2v.png)
+
+## Step 6: Customize error messages (optional)
+
+By default when a route is not found Laravel will send an HTML page that says 404 we can't find this route. If we're building an API we want to send the user JSON they can use instead of a fat HTML chunk.
+
+Redefine the `render` function in **app/Exceptions/Handler.php**:
+
+```
+    public function render($request, Exception $exception)
+    {
+        // This will replace our 404 response with
+        // a JSON response.
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json([
+                'error' => 'Resource not found'
+            ], 404);
+        }
+
+        return parent::render($request, $exception);
+    }
+```
+
+The header for specifying JSON responses is `Accept: application/json`
+
+## Step 7: Authentication
+
+![](https://uploads.toptal.io/blog/image/123420/toptal-blog-image-1498658670107-8278feedb09d3780de392a9cd14e03ad.png)
+
+Add register, login and logout API routes:
+
+```
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
+```
+
+These controllers are in the **app/Http/Controllers/Auth** directory and ship by default with Laravel 5.
+
+In order to implement them for an API customization required. Define the register function in **app/Http/Controllers/Auth/RegisterController.php**:
+
+```
+protected function registered(Request $request, $user)
+{
+    $user->generateToken();
+    return response()->json(['data' => $user->toArray()], 201);
+}
+```
+
+And we define the generateToken function on the user model in **app/User.php**:
+
+```
+public function generateToken()
+{
+    $this->api_token = str_random(60);
+    $this->save();
+    return $this->api_token;
+}
+```
+
+This generates a random string that we save for the user as their unique API token.
+
+We can test this using postman on send a curl request like so:
+
+```
+$ curl -X POST http://localhost:8000/api/register \
+ -H "Accept: application/json" \
+ -H "Content-Type: application/json" \
+ -d '{"name": "John", "email": "test@register.com", "password": "toptal123", "password_confirmation": "toptal123"}'
+```
 
 
 
