@@ -5,13 +5,13 @@ Laravel 5 REST API
 
 I'll be working alongside [this tutorial](https://www.toptal.com/laravel/restful-laravel-api-tutorial) for building the API. The author put the source code up for it [here](https://github.com/andrecastelo/example-api)
 
-###Step 1: Create the project 
+## Step 1: Create the project 
 
 We can use [this handy script](https://gist.github.com/connor11528/fcfbdb63bc9633a54f40f0a66e3d3f2e) for generating a new Laravel 5 app.
 
 I also wrote [this Medium article](https://medium.com/@connorleech/build-an-online-forum-with-laravel-initial-setup-and-seeding-part-1-a53138d1fffc) that goes through installing and configuring a MySQL database for a Laravel 5 application. I find myself refering back to it regularly. 
 
-### Step 2: Configure database and make models
+## Step 2: Configure database and make models
 
 If you don't have MySQL installed on Mac may the force be with you. It comes preinstalled and there's MAMP but getting your machine set up to run SQL to MySQL from the terminal can be tricky.
 
@@ -54,7 +54,7 @@ $guarded = []
 Which for our purposes will do the same thing. To learn more about this you can check the Eloquent docs on [Mass Assignment](https://laravel.com/docs/5.5/eloquent#mass-assignment).
 
 
-### Step 3: Step up a database seeders
+## Step 3: Step up a database seeders
 
 By default we want data to play with so we must seed the database. Generate a new seeder for creating articles:
 
@@ -168,6 +168,74 @@ class UsersTableSeeder extends Seeder
     }
 }
 ```
+
+## Step 4: Set up CRUD routes and controllers
+
+Laravel follows the Model View Controller (MVC) pattern that was first popularized by Ruby On Rails. We have our models set up, now we're going to set up routes that map to controllers in order to send out JSON to people (ie Javascript engines or mobile phones) that make requests to our API.
+
+```
+$ php artisan make:controller ArticleController -r
+```
+
+In **routes/api.php** define our endpoints:
+
+```
+Route::get('articles', 'ArticleController@index');
+Route::get('articles/{article}', 'ArticleController@show');
+Route::post('articles', 'ArticleController@store');
+Route::put('articles/{article}', 'ArticleController@update');
+Route::delete('articles/{article}', 'ArticleController@delete');
+```
+
+We're going to take advantage of [Route Model Binding](https://laravel.com/docs/5.5/routing#route-model-binding) so that instead of passing the id and fetching by id we straight up get the resource that we want. Here is what **app/Http/Controllers/ArticleController.php** looks like w/out the comments:
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Article;
+
+class ArticleController extends Controller
+{
+    public function index()
+    {
+        return Article::all();
+    }
+
+    public function show(Article $article)
+    {
+        return $article;
+    }
+
+    public function store(Request $request)
+    {
+        $article = Article::create($request->all());
+
+        return response()->json($article, 201);
+    }
+
+    public function update(Request $request, Article $article)
+    {
+        $article->update($request->all());
+
+        return response()->json($article, 200);
+    }
+
+    public function delete(Article $article)
+    {
+        $article->delete();
+
+        return response()->json(null, 204);
+    }
+}
+```
+
+Now we have a rudimentary API for articles. You can view in your browser all the articles: http://localhost:8000/api/articles or an individual article based on id: http://localhost:8000/api/articles/2
+
+
+
 
 
 
