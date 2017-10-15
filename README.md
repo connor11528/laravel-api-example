@@ -357,9 +357,11 @@ Authorization token will be in the header for requests and look like `Authorizat
 
 - [Role base authentication in Laravel with JWT](https://scotch.io/tutorials/role-based-authentication-in-laravel-with-jwt) (scotch.io)
 
-- [Node.js JWT auth server](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) (auth0 github)
+- [Node.js JWT auth server](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) (auth0 github repo)
 
-- [Vue.js JWT auth frontend static site](https://github.com/connor11528/vuejs-auth-frontend) (github)
+- [Vue.js JWT auth frontend static site](https://github.com/connor11528/vuejs-auth-frontend) (github repo)
+
+- [SPA boilerplate for Laravel API and Vue Router with Vuetify](https://github.com/aturingmachine/laravel-vue-spa-boilerplate) (github repo)
 
 
 
