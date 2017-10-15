@@ -353,16 +353,21 @@ $ curl -X POST localhost:8000/api/login \
 Authorization token will be in the header for requests and look like `Authorization: Bearer Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqnw`
 
 
-## Further resources
+## Resources
 
-- [Role base authentication in Laravel with JWT](https://scotch.io/tutorials/role-based-authentication-in-laravel-with-jwt) (scotch.io)
+- :octocat: **francescomalatesta/laravel-api-boilerplate-jwt** - https://github.com/francescomalatesta/laravel-api-boilerplate-jwt - An API Boilerplate to create a ready-to-use REST API in seconds 
+
+- [Create API resources with Laravel 5.5](https://medium.com/@devlob/creating-apis-in-laravel-5-5-using-api-resources-9850c1b70efb) (medium article)
 
 - [Node.js JWT auth server](https://github.com/auth0-blog/nodejs-jwt-authentication-sample) (auth0 github repo)
 
 - [Vue.js JWT auth frontend static site](https://github.com/connor11528/vuejs-auth-frontend) (github repo)
 
-- [SPA boilerplate for Laravel API and Vue Router with Vuetify](https://github.com/aturingmachine/laravel-vue-spa-boilerplate) (github repo)
+- [Role base authentication in Laravel with JWT](https://scotch.io/tutorials/role-based-authentication-in-laravel-with-jwt) (scotch.io)
 
-- [Create API resources with Laravel 5.5](https://medium.com/@devlob/creating-apis-in-laravel-5-5-using-api-resources-9850c1b70efb) (medium article)
+- [boilerplate for Laravel and Vue SPA (Vue Routing + Vuetify)](https://github.com/aturingmachine/laravel-vue-spa-boilerplate) (github repo)
+
+
+
 
 
