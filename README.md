@@ -363,5 +363,6 @@ Authorization token will be in the header for requests and look like `Authorizat
 
 - [SPA boilerplate for Laravel API and Vue Router with Vuetify](https://github.com/aturingmachine/laravel-vue-spa-boilerplate) (github repo)
 
+- [Create API resources with Laravel 5.5](https://medium.com/@devlob/creating-apis-in-laravel-5-5-using-api-resources-9850c1b70efb) (medium article)
 
 
