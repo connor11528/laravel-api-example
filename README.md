@@ -367,7 +367,9 @@ Authorization token will be in the header for requests and look like `Authorizat
 
 - [boilerplate for Laravel and Vue SPA (Vue Routing + Vuetify)](https://github.com/aturingmachine/laravel-vue-spa-boilerplate) (github repo)
 
+---
 
+**Update 04/06/18:** Token based authentication for a Laravel and React.js app (uses tymon/jwt-auth package): https://medium.com/@Gbxnga/token-based-authentication-with-react-and-laravel-restful-api-83f16581e85
 
 
 
