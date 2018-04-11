@@ -355,6 +355,9 @@ Authorization token will be in the header for requests and look like `Authorizat
 
 ## Resources
 
+- Has email verification and API: https://medium.com/@mosesesan/tutorial-5-how-to-build-a-laravel-5-4-jwt-authentication-api-with-e-mail-verification-61d3f356f823
++ source code: https://github.com/MosesEsan/mesan-laravel-jwt-authentication-api
+
 - :octocat: **francescomalatesta/laravel-api-boilerplate-jwt** - https://github.com/francescomalatesta/laravel-api-boilerplate-jwt - An API Boilerplate to create a ready-to-use REST API in seconds 
 
 - [Create API resources with Laravel 5.5](https://medium.com/@devlob/creating-apis-in-laravel-5-5-using-api-resources-9850c1b70efb) (medium article)
