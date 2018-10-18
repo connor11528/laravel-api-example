@@ -18,7 +18,7 @@ If you don't have MySQL installed on Mac may the force be with you. It comes pre
 My setup is to run:
 
 ```
-$ mysql -uroot -p 
+$ mysql -u root -p 
 > create database MY_APP_NAME;
 $ php artisan make:model Article -m
 ```
